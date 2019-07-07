@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoquan.reactserver.mapper.ProductDao">
+    <select id="listProduct" resultType="com.luoquan.reactserver.entity.Product">
+        SELECT
+            id,
+            `name`,
+            `desc`,
+            price,
+            category_id,
+            pa_category_id,
+            detail,
+            status
+        FROM
+            product
+    </select>
+
+    <select id="searchProduct" resultType="com.luoquan.reactserver.entity.Product" parameterType="java.util.Map">
+        SELECT
+            id,
+            `name`,
+            `desc`,
+            price,
+            category_id,
+            pa_category_id,
+            detail,
+            status
+        FROM
+            product
+        WHERE 1=1
+        <choose>
+            <when test="productName !=null and productName != ''">
+                AND `name` LIKE CONCAT('%',#{productName},'%')
+            </when>
+            <otherwise>
+                AND `desc` LIKE CONCAT('%',#{productDesc},'%')
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateStatus" parameterType="java.util.Map">
+        UPDATE product
+        SET `status`=#{status}
+        WHERE id=#{productId}
+    </update>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoquan.reactserver.mapper.CategoryDao">
+    <insert id="addCategory" parameterType="com.luoquan.reactserver.entity.Category">
+        INSERT INTO category (id, parent_id, `name`)
+        VALUES
+            (#{id}, #{parentId}, #{name})
+    </insert>
+
+    <select id="isCategoryExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+            category
+        WHERE
+            name = #{name}
+    </select>
+
+    <select id="isParentCategoryExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+            category
+        WHERE
+            id = #{parentId}
+    </select>
+
+    <select id="listCategory" parameterType="java.lang.String" resultType="com.luoquan.reactserver.entity.Category">
+        SELECT
+            id,
+            parent_id,
+            `name`
+        FROM
+            category
+        WHERE parent_id = #{parentId}
+    </select>
+
+    <update id="updateCategory" parameterType="java.util.Map">
+        UPDATE
+            category
+        SET
+            `name` = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getCategoryNameById" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            `name`
+        FROM
+            category
+        WHERE id = #{categoryId}
+    </select>
+</mapper>
