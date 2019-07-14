@@ -6,8 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * ProductController
@@ -51,6 +55,12 @@ public class ProductController {
     @PostMapping("/manage/product/updateStatus")
     public RetCode updateProductStatus(@RequestBody Map<String, Object> param) {
         return productService.updateStatus(param);
+    }
+
+    @PostMapping("/manage/product/add")
+    public RetCode addProduct() {
+
+        return null;
     }
 
 }
